@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graybox Mario 64 - Three.js</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; font-family: Arial, sans-serif; }
+
+        /* Coin counter in the top-left corner */
+        #hud {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.9);
+            font-size: 22px;
+            font-weight: bold;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Dark background for the win/lose popup */
+        #overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 20;
+            justify-content: center;
+            align-items: center;
+        }
+        #overlay.show { display: flex; }
+
+        /* The popup box */
+        #overlay-box {
+            background: rgba(10, 10, 30, 0.95);
+            border: 3px solid #FFD700;
+            border-radius: 20px;
+            padding: 50px 70px;
+            text-align: center;
+            color: white;
+        }
+        #overlay-title    { font-size: 52px; font-weight: bold; margin-bottom: 10px; }
+        #overlay-subtitle { font-size: 20px; color: #ccc; margin-bottom: 30px; }
+
+        #restart-btn {
+            background: #FFD700;
+            color: #333;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 14px 44px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        #restart-btn:hover { background: #ffe840; }
+
+        /* Controls hint at the bottom */
+        #hint {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            color: rgba(255,255,255,0.9);
+            font-size: 13px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            line-height: 1.7;
+            z-index: 10;
+            pointer-events: none;
+        }
+    </style>
+    
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Coin counter shown during gameplay -->
+    <div id="hud">
+        Coins: <span id="coinCount">0</span>
+    </div>
+
+    <!-- Win / Lose popup (hidden until the game ends) -->
+    <div id="overlay">
+        <div id="overlay-box">
+            <div id="overlay-title">YOU WIN!</div>
+            <div id="overlay-subtitle">...</div>
+            <button id="restart-btn" onclick="location.reload()">Play Again</button>
+        </div>
+    </div>
+
+    <!-- Controls reminder in the bottom-left -->
+    <div id="hint">
+        <b>Move:</b> WASD or Arrow Keys &nbsp;|&nbsp; <b>Jump:</b> Space<br>
+        Stomp enemies by jumping on top of them to defeat them (+3 coins)<br>
+        Goal: Reach the yellow spinning star on the last island to WIN!
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
